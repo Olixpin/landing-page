@@ -81,6 +81,7 @@ section {
   font-weight: bold;
   text-decoration: none;
   color: #000;
+  padding: 0.5em;
 }
 
 .navbar__menu .menu__link:hover {
@@ -96,6 +97,7 @@ section {
   top: 0;
   width: 100%;
   z-index: 5;
+  padding: 1em 0rem;
 }
 
 /* Footer Styles */

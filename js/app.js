@@ -36,6 +36,36 @@
  */
 
 // build the nav
+// const navbarList = document.querySelector("#navbar__list");
+
+const sections = document.querySelectorAll("section");
+const menuLink = document.querySelector(".menu__link");
+const navListContainer = document.querySelector("#navbar__list");
+const navList = [];
+
+// Create Nav List
+const createNavList = () => {
+  sections.forEach((section) => {
+    navList.push(section);
+  });
+};
+
+createNavList();
+
+console.log(navList);
+
+const createList = () => {
+  navList.forEach((item, index) => {
+    let listElement = document.createElement("li");
+    navListContainer.appendChild(listElement);
+    listElement.innerHTML = `<a href=#section${
+      index + 1
+    } class="menu__link">Section ${index + 1}</a>`;
+    console.log(item);
+  });
+};
+
+console.log(createList());
 
 // Add class 'active' to section when near top of viewport
 
@@ -50,5 +80,20 @@
 // Build menu
 
 // Scroll to section on link click
+const smoothScrolling = () => {
+  const links = document.querySelectorAll("a");
+  links.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const id = e.target.getAttribute("href");
+      console.log(id);
+
+      document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+    });
+  });
+};
+
+smoothScrolling();
 
 // Set sections as active
