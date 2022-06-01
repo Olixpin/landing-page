@@ -36,10 +36,8 @@
  */
 
 // build the nav
-// const navbarList = document.querySelector("#navbar__list");
 
 const sections = document.querySelectorAll("section");
-const menuLink = document.querySelector(".menu__link");
 const navListContainer = document.querySelector("#navbar__list");
 const navList = [];
 
@@ -52,8 +50,6 @@ const createNavList = () => {
 
 createNavList();
 
-console.log(navList);
-
 const createList = () => {
   navList.forEach((item, index) => {
     let listElement = document.createElement("li");
@@ -65,7 +61,7 @@ const createList = () => {
   });
 };
 
-console.log(createList());
+createList();
 
 // Add class 'active' to section when near top of viewport
 
@@ -87,8 +83,6 @@ const smoothScrolling = () => {
       e.preventDefault();
 
       const id = e.target.getAttribute("href");
-      console.log(id);
-
       document.querySelector(id).scrollIntoView({ behavior: "smooth" });
     });
   });
@@ -97,3 +91,23 @@ const smoothScrolling = () => {
 smoothScrolling();
 
 // Set sections as active
+
+const setActiveClass = () => {
+  navList.forEach((section) => {
+    let rect = section.getBoundingClientRect();
+
+    if (rect.top < 0 || rect.top >= section.offsetheight) {
+      section.classList.remove("your-active-class");
+    } else {
+      section.classList.add("your-active-class");
+    }
+  });
+};
+
+document.addEventListener(
+  "scroll",
+  () => {
+    setActiveClass();
+  },
+  { passive: true }
+);
