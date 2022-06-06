@@ -39,25 +39,14 @@
 
 const sections = document.querySelectorAll("section");
 const navListContainer = document.querySelector("#navbar__list");
-const navList = [];
-
-// Create Nav List
-const createNavList = () => {
-  sections.forEach((section) => {
-    navList.push(section);
-  });
-};
-
-createNavList();
 
 const createList = () => {
-  navList.forEach((item, index) => {
+  sections.forEach((item, index) => {
     let listElement = document.createElement("li");
     navListContainer.appendChild(listElement);
     listElement.innerHTML = `<a href=#section${
       index + 1
     } class="menu__link">Section ${index + 1}</a>`;
-    console.log(item);
   });
 };
 
@@ -65,7 +54,22 @@ createList();
 
 // Add class 'active' to section when near top of viewport
 
-// Scroll to anchor ID using scrollTO event
+let links = document.querySelectorAll("a");
+console.log(links);
+
+window.addEventListener("scroll", (e) => {
+  sections.forEach((section, index) => {
+    let rect = section.getBoundingClientRect();
+    if (rect.top > 0 && rect.top < section.offsetHeight - 200) {
+      section.classList.add("your-active-class");
+      links[index].classList.add("active__link");
+    } else {
+      section.classList.remove("your-active-class");
+      links[index].classList.remove("active__link");
+    }
+    console.log(section);
+  });
+});
 
 /**
  * End Main Functions
@@ -77,7 +81,6 @@ createList();
 
 // Scroll to section on link click
 const smoothScrolling = () => {
-  const links = document.querySelectorAll("a");
   links.forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
@@ -91,23 +94,3 @@ const smoothScrolling = () => {
 smoothScrolling();
 
 // Set sections as active
-
-const setActiveClass = () => {
-  navList.forEach((section) => {
-    let rect = section.getBoundingClientRect();
-
-    if (rect.top < 0 || rect.top >= section.offsetheight) {
-      section.classList.remove("your-active-class");
-    } else {
-      section.classList.add("your-active-class");
-    }
-  });
-};
-
-document.addEventListener(
-  "scroll",
-  () => {
-    setActiveClass();
-  },
-  { passive: true }
-);
